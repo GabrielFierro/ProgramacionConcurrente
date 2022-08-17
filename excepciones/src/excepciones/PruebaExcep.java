@@ -44,9 +44,27 @@ public class PruebaExcep {
             throw e;
         }
     }
+    
+    private static void coleccionDeNumeros(){
+        int numero;
+        int coleccion[] = new int[5];
+        Scanner sc = new Scanner(System.in);
+//        try{
+            for(int i=0; i < 7; i++){
+                System.out.println("Ingrese un numero");
+                numero = sc.nextInt();
+                coleccion[i] = numero;
+                System.out.println("El numero es: " + coleccion[i]);
+                // Exception: ArrayIndexOutOfBoundsException: 5
+            }
+  //      }catch(){
+            
+    //    }
+    }
 
     public static void main(String[] args) {
         //edadPersona();
-        ruleta();
+        //ruleta();
+        coleccionDeNumeros();
     }
 }
