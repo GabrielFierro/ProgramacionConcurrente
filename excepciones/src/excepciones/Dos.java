@@ -14,7 +14,7 @@ class Dos{
     int valor =0;   // Valor empieza en 0
     try{
         valor= valor +1;    // Valor = 1
-        valor = valor + Integer.parseInt("W");  // Intenta parsear el character W a entero, da error y se dirige al catch con valor = 1
+        valor = valor + Integer.parseInt("W");  // Intenta parsear el string W a entero, da error y se dirige al catch con valor = 1
         valor = valor + 1;
         System.out.println("Valor al final del try: " + valor);
     } catch (NumberFormatException e){  // Atrapa las excepciones de Formato de numero
