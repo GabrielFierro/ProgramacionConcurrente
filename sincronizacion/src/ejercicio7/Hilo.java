@@ -12,36 +12,37 @@ package ejercicio7;
 public class Hilo implements Runnable {
 
     private Cadena l;
-    private int turno;
+    private Turno t;
     private String caracter;
-    
-    public Hilo(Cadena letr, int turno, String caracter) {
+
+    public Hilo(Cadena letr, Turno turno, String caracter) {
         l = letr;
-        this.turno = turno;
+        this.t = turno;
         this.caracter = caracter;
     }
 
     public void run() {
         // redefinir el metodo
         int i = 0;
-        
-        if(this.turno == 0){
-            concatenarXVeces(5);
-        }else if(this.turno == 1){
+
+        if (t.getTurno() == 0) {
+            concatenarXVeces(1);
+        } else if (t.getTurno() == 1) {
+            concatenarXVeces(2);
+        } else {
             concatenarXVeces(3);
-        }else{
-            concatenarXVeces(6);
         }
-        
+        t.incrementarTurno();
+
     }
-    
-    public void concatenarXVeces(int cant){
+
+    public void concatenarXVeces(int cant) {
         int i = 0;
-        
-        while(i<cant){
+
+        while (i < cant) {
             l.concatenar(caracter);
             i++;
         }
     }
-    
+
 }

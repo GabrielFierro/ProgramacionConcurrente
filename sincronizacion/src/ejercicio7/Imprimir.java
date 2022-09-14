@@ -13,10 +13,11 @@ public class Imprimir {
 
     public static void main(String[] args) {
         Cadena l = new Cadena("");
-        Thread[] hilos = new Thread[2];
-        Hilo hilo = new Hilo(l, 0, "A");
-        Hilo hilo1 = new Hilo(l, 1, "B");
-        Hilo hilo2 = new Hilo(l, 2, "C");
+        Turno t = new Turno();
+        
+        Hilo hilo = new Hilo(l, t, "A");
+        Hilo hilo1 = new Hilo(l, t, "B");
+        Hilo hilo2 = new Hilo(l, t, "C");
 
         Thread h1 = new Thread(hilo);
         Thread h2 = new Thread(hilo1);
