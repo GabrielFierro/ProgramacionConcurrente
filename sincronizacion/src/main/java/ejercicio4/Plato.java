@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ejercicio4;
+package main.java.ejercicio4;
 
 /**
  *
@@ -16,12 +16,19 @@ public class Plato {
         en_uso = false;
     }
 
-    public synchronized void usar() {
-        System.out.println("Entro al metodo usar() de la clase Plato");
-        en_uso = true;
+    public synchronized boolean usar() {
+        if(!en_uso){
+            en_uso = true;
+        }
+        return en_uso;
     }
 
     public synchronized void dejarPlato() {
         en_uso = false;
     }
+    
+    public String toString(){
+        return "en_uso: " + en_uso;
+    }
+    
 }

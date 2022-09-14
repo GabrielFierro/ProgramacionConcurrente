@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicio4;
+package main.java.ejercicio4;
 
 /**
  *
@@ -15,26 +15,45 @@ public class Jaula {
     private Rueda r;
     private Hamaca h;
 
-    public Jaula(Plato P, Rueda r, Hamaca h){
+    public Jaula(Plato p, Rueda r, Hamaca h) {
         this.p = p;
         this.r = r;
         this.h = h;
     }
-    
+
     public boolean usarPlato() {
-        System.out.println("Entro al metodo usarPlato()");
-        this.p.usar();
-        return true;
+        boolean exito = p.usar();
+        return exito;
+
+    }
+
+    public void dejarPlato() {
+        p.dejarPlato();
     }
 
     public boolean usarRueda() {
-        r.usar();
-        return true;
+        boolean exito = r.usar();
+        return exito;
+    }
+
+    public void dejarRueda() {
+        r.dejarRueda();
     }
 
     public boolean usarHamaca() {
-        h.usar();
-        return true;
+        boolean exito = h.usar();
+        return exito;
+    }
+
+    public void dejarHamaca() {
+        h.dejarHamaca();
+    }
+
+    @Override
+    public String toString() {
+        String resultado = "";
+        resultado = "Plato: " + p.toString() + ", rueda: " + r.toString() + ", hamaca: " + h.toString();
+        return resultado;
     }
 
 }
