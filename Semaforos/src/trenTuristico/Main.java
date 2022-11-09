@@ -23,10 +23,12 @@ public class Main {
 //        int cantPasajeros = 4;
 //        int cantAsientos = 10;
 //        1 pasajero queda fuera y no puede subir
+
 //        int cantTickets = 5;
 //        int cantPasajeros = 4;
 //        int cantAsientos = 10;
 //        todos los pasajeros pueden comprar ticket y subir al tren
+
         int cantTickets = 3;
         int cantPasajeros = 4;
         int cantAsientos = 10;
