@@ -32,12 +32,13 @@ public class Cabina {
         this.cantMaxDeTickets = cantMaxDeTickets;
         this.cantTicketComprado = 0;
         this.contPasajerosSentados = 0;
-        this.ticketsAVender = new Semaphore(cantMaxDeTickets);
+        this.ticketsAVender = new Semaphore(1);
         this.mutex = new Semaphore(1);
     }
 
     public boolean puedeEmitirPasaje() throws InterruptedException {
         // Verifica si puede emitir un pasaje
+        ticketsAVender.acquire();
         boolean exito = false;
         if (cantTicketComprado < cantMaxDeTickets) {
             exito = true;
@@ -55,8 +56,8 @@ public class Cabina {
         return exito;
     }
 
-    public void venderPasaje() throws InterruptedException {
-        ticketsAVender.acquire();
+    public void venderPasaje() {
+        ticketsAVender.release();
     }
 
     public void comprarPasaje() {
