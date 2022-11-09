@@ -27,7 +27,6 @@ public class Cabina {
     private int cantTicketComprado; // Cantidad de tickets que se venden
     private int cantMaxDeTickets; // Cantidad maxima de tickets a vender
     private int contPasajerosSentados;
-    private ArrayList<Thread> array_list = new ArrayList<Thread>();
 
     public Cabina(int cantMaxDeTickets) {
         this.cantMaxDeTickets = cantMaxDeTickets;
@@ -61,22 +60,12 @@ public class Cabina {
     }
 
     public void comprarPasaje() {
-        //this.salaDeEspera.enviarPasajero(this.cantTicketComprado, Thread.currentThread);
-        this.array_list.add(this.cantTicketComprado, Thread.currentThread());   // Simula la sala de espera
-        // no es necesario esto
-        // para ello utilizo un semaforo binario para bloquearlos
         this.cantTicketComprado++;
         mutex.release();
     }
 
     public int getCantidadDePasajesDisponibles() {
         return this.cantMaxDeTickets;
-    }
-
-    public void subirPasajeros() {
-        this.array_list.forEach((n) -> {
-            System.out.println("El " + n.getName() + " se subio al tren");
-        });
     }
 
     public boolean compraronTickets() {
