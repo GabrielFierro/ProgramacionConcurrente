@@ -17,24 +17,30 @@ public class Pasajero extends Thread {
 
     private String nombre;
     private Cabina cab; //Recurso compartido
-    private boolean exito;
+    private ControlTren ct;
 
-    public Pasajero(String nombre, Cabina cab) {
+    public Pasajero(String nombre, Cabina cab, ControlTren ct) {
         this.nombre = nombre;
         this.cab = cab;
+        this.ct = ct;
     }
 
     @Override
     public void run() {
+        boolean exito;
         try {
             exito = this.cab.puedeComprarPasaje();
             System.out.println("El " + this.nombre + " esta intentando comprar un ticket");
             Thread.sleep(100);
-            if(exito){
+            if (exito) {
                 System.out.println("El " + this.nombre + " pudo adquirir el pasaje" + "\n");
                 this.cab.comprarPasaje();
-            }else{
+            } else {
                 System.out.println("El " + this.nombre + " no pudo adquirir el pasaje" + "\n");
+            }
+            if (this.cab.compraronTickets()) {
+                System.out.println("Entro aca");
+                this.ct.puedenSubir();
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(Pasajero.class.getName()).log(Level.SEVERE, null, ex);
