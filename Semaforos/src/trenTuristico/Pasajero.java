@@ -18,11 +18,17 @@ public class Pasajero extends Thread {
     private String nombre;
     private Cabina cab; //Recurso compartido
     private ControlTren ct;
+    private boolean comproPasaje;
 
     public Pasajero(String nombre, Cabina cab, ControlTren ct) {
         this.nombre = nombre;
         this.cab = cab;
         this.ct = ct;
+        comproPasaje = false;
+    }
+    
+    public void setComproPasaje(boolean comproPasaje){
+        this.comproPasaje = comproPasaje;
     }
 
     @Override
@@ -35,11 +41,11 @@ public class Pasajero extends Thread {
             if (exito) {
                 System.out.println("El " + this.nombre + " pudo adquirir el pasaje" + "\n");
                 this.cab.comprarPasaje();
+                this.setComproPasaje(true);
             } else {
                 System.out.println("El " + this.nombre + " no pudo adquirir el pasaje" + "\n");
             }
-            if (this.cab.compraronTickets()) {
-                System.out.println("Entro aca");
+            if (this.comproPasaje && this.cab.compraronTickets()) {
                 this.ct.puedenSubir();
             }
         } catch (InterruptedException ex) {
