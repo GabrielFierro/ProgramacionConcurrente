@@ -21,7 +21,6 @@ public class Cabina {
     y aquellos que no alcanzan a comprar quedan en lista de espera, para ello
     debo bloquear la compra
      */
-    private Semaphore espera;
     private Semaphore ticketsAVender;   // Semaforo generico que controla la cantidad
     // de tickets maximos que se puede vender para 1 viaje
     private Semaphore mutex;
@@ -37,7 +36,6 @@ public class Cabina {
         this.contPasajerosSentados = 0;
         this.ticketsAVender = new Semaphore(cantMaxDeTickets); // ej: 10
         this.mutex = new Semaphore(1);
-        this.espera = new Semaphore(0);
     }
 
     public boolean puedeEmitirPasaje() throws InterruptedException {
@@ -66,6 +64,8 @@ public class Cabina {
     public void comprarPasaje() {
         //this.salaDeEspera.enviarPasajero(this.cantTicketComprado, Thread.currentThread);
         this.array_list.add(this.cantTicketComprado, Thread.currentThread());   // Simula la sala de espera
+        // no es necesario esto
+        // para ello utilizo un semaforo binario para bloquearlos
         this.cantTicketComprado++;
         mutex.release();
     }
@@ -87,7 +87,7 @@ public class Cabina {
     public boolean puedenSubir(int cantAsientos) {
         boolean exito = false;
 
-        if (cantAsientos > this.cantMaxDeTickets) {
+        if (cantAsientos > this.cantMaxDeTickets) { 
             this.contPasajerosSentados++;
             exito = true;
         }
