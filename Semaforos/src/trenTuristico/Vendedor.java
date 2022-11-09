@@ -17,20 +17,20 @@ public class Vendedor extends Thread {
 
     private String nombre;
     private Cabina cab;
-    private int cant;
+    private int cantTickets;
     private boolean exito;
 
-    public Vendedor(String nombre, Cabina cab, int cant) {
+    public Vendedor(String nombre, Cabina cab, int cantTickets) {
         this.nombre = nombre;
         this.cab = cab;
-        this.cant = cant;
+        this.cantTickets = cantTickets;
     }
 
     @Override
     public void run() {
         int cantPasajesDisp = 0;
-        cantPasajesDisp = cab.cantidadDePasajesDisponibles();
-        for (int i = 0; i < this.cant; i++) {
+        cantPasajesDisp = cab.getCantidadDePasajesDisponibles();
+        for (int i = 0; i < this.cantTickets; i++) {
             try {
                 System.out.println("\nTiene disponible " + cantPasajesDisp + " pasajes para vender");
                 exito = cab.puedeEmitirPasaje();
