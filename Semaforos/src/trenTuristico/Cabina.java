@@ -21,7 +21,7 @@ public class Cabina {
     y aquellos que no alcanzan a comprar quedan en lista de espera, para ello
     debo bloquear la compra
      */
-    private Semaphore ticketsAVender;   // Semaforo generico que controla la cantidad
+    private Semaphore ticketsAVender;   // Semaforo binario que controla la cantidad
     // de tickets maximos que se puede vender para 1 viaje
     private Semaphore mutex;
     private int cantTicketComprado; // Cantidad de tickets que se venden
@@ -32,7 +32,7 @@ public class Cabina {
         this.cantMaxDeTickets = cantMaxDeTickets;
         this.cantTicketComprado = 0;
         this.contPasajerosSentados = 0;
-        this.ticketsAVender = new Semaphore(cantMaxDeTickets); // ej: 10
+        this.ticketsAVender = new Semaphore(cantMaxDeTickets);
         this.mutex = new Semaphore(1);
     }
 
