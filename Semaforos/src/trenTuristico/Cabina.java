@@ -5,6 +5,7 @@
  */
 package trenTuristico;
 
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -24,15 +25,17 @@ public class Cabina {
     private Semaphore ticketsAVender;   // Semaforo generico que controla la cantidad
     // de tickets maximos que se puede vender para 1 viaje
     private Semaphore mutex;
-    private int cantTicketComprado; // Contador que controla la cantidad de 
-    // tickets que se venden
-    private int cantTicketsAVender; // Contador que controla la cantidad maxima
-    // de tickets a vender
+    private int cantTicketComprado; // Cantidad de tickets que se venden
+    private int cantMaxDeTickets; // Cantidad maxima de tickets a vender
+    private int contPasajerosSentados;
+    private SalaDeEspera salaDeEspera;
+    private ArrayList<Thread> array_list = new ArrayList<Thread>();
 
-    public Cabina(int cantTicketsAVender) {
-        this.cantTicketsAVender = cantTicketsAVender;
+    public Cabina(int cantMaxDeTickets) {
+        this.cantMaxDeTickets = cantMaxDeTickets;
         this.cantTicketComprado = 0;
-        this.ticketsAVender = new Semaphore(cantTicketsAVender); // ej: 10
+        this.contPasajerosSentados = 0;
+        this.ticketsAVender = new Semaphore(cantMaxDeTickets); // ej: 10
         this.mutex = new Semaphore(1);
         this.espera = new Semaphore(0);
     }
@@ -40,7 +43,7 @@ public class Cabina {
     public boolean puedeEmitirPasaje() throws InterruptedException {
         // Verifica si puede emitir un pasaje
         boolean exito = false;
-        if (cantTicketComprado < cantTicketsAVender) {
+        if (cantTicketComprado < cantMaxDeTickets) {
             exito = true;
         }
         return exito;
@@ -50,7 +53,7 @@ public class Cabina {
         // Verifica si puede comprar un pasaje
         mutex.acquire();
         boolean exito = false;
-        if (cantTicketComprado < cantTicketsAVender) {
+        if (cantTicketComprado < cantMaxDeTickets) {
             exito = true;
         }
         return exito;
@@ -61,12 +64,34 @@ public class Cabina {
     }
 
     public void comprarPasaje() {
+        //this.salaDeEspera.enviarPasajero(this.cantTicketComprado, Thread.currentThread);
+        this.array_list.add(this.cantTicketComprado, Thread.currentThread());   // Simula la sala de espera
         this.cantTicketComprado++;
         mutex.release();
     }
-    
-    public int cantidadDePasajesDisponibles(){
-        return this.cantTicketsAVender;
+
+    public int getCantidadDePasajesDisponibles() {
+        return this.cantMaxDeTickets;
+    }
+
+    public void subirPasajeros() {
+        this.array_list.forEach((n) -> {
+            System.out.println("El " + n.getName() + " se subio al tren");
+        });
+    }
+
+    public boolean compraronTickets() {
+        return cantMaxDeTickets >= cantTicketComprado;
+    }
+
+    public boolean puedenSubir(int cantAsientos) {
+        boolean exito = false;
+
+        if (cantAsientos > this.cantMaxDeTickets) {
+            this.contPasajerosSentados++;
+            exito = true;
+        }
+        return exito;
     }
 
 }
