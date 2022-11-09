@@ -27,7 +27,6 @@ public class Cabina {
     private int cantTicketComprado; // Cantidad de tickets que se venden
     private int cantMaxDeTickets; // Cantidad maxima de tickets a vender
     private int contPasajerosSentados;
-    private SalaDeEspera salaDeEspera;
     private ArrayList<Thread> array_list = new ArrayList<Thread>();
 
     public Cabina(int cantMaxDeTickets) {
