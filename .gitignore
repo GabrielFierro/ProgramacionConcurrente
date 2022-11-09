@@ -20,3 +20,7 @@ nb-configuration.xml
 *.ear
 
 /hilos/nbproject/private/
+/sincronizacion/nbproject/private/
+/CruceDeAutos/nbproject/private/
+/Semaforos/nbproject/private/
+/Monitores/nbproject/private/
